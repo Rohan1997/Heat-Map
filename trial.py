@@ -3,17 +3,22 @@ from matplotlib import cm as CM
 from matplotlib import mlab as ML
 import numpy as NP
 import cv2
+from PIL import Image
+
+img = cv2.imread('left.png',0)
+im = Image.open('left.png')
+width, height = im.size
 
 n = 1e5
-x = y = NP.linspace(-5, 5, 100)										#Generate 100 equidistant values bet -5 to 5
+#x = y = NP.linspace(-5, 5, 100)										#Generate 100 equidistant values bet -5 to 5
+x = NP.linspace(0, width, width)
+y = NP.linspace(0, height, height)
 X, Y = NP.meshgrid(x, y)											#Generate x,y matrix
 
-
-
-Z1 = ML.bivariate_normal(X, Y, 1, 2, 0, 0)
+Z1 = ML.bivariate_normal(X, Y, width/3, height/3, 0, 0)
 #bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.00
 
-Z2 = ML.bivariate_normal(X, Y, 4, 1, 1, 1)
+Z2 = ML.bivariate_normal(X, Y, 2*width/3, 2*height/3, 1, 1)
 ZD = Z2 - Z1
 x = X.ravel()
 y = Y.ravel()
@@ -34,10 +39,10 @@ cb.set_label('mean value')
 
 PLT.ion()
 for i in range(30):
-	Z1 = ML.bivariate_normal(X, Y, i/10+1, 2, 0, 0)
+	Z1 = ML.bivariate_normal(X, Y, width*i/30+1, height/3, 0, 0)
 #bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.00
 
-	Z2 = ML.bivariate_normal(X, Y, 4, 1, 1, 1)
+	#Z2 = ML.bivariate_normal(X, Y, 4, 1, 1, 1)
 	ZD = Z2 - Z1
 	x = X.ravel()
 	y = Y.ravel()
