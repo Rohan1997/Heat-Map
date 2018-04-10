@@ -32,4 +32,34 @@ PLT.axis([x.min(), x.max(), y.min(), y.max()])
 cb = PLT.colorbar()
 cb.set_label('mean value')
 
-PLT.show()
+PLT.ion()
+for i in range(30):
+	Z1 = ML.bivariate_normal(X, Y, i/10+1, 2, 0, 0)
+#bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.00
+
+	Z2 = ML.bivariate_normal(X, Y, 4, 1, 1, 1)
+	ZD = Z2 - Z1
+	x = X.ravel()
+	y = Y.ravel()
+	z = ZD.ravel()
+	PLT.hexbin(x, y, C=z, gridsize=gridsize, cmap=CM.jet, bins=None)
+	PLT.axis([x.min(), x.max(), y.min(), y.max()])
+
+	#cb = PLT.colorbar()
+	#cb.set_label('mean value')
+
+	#PLT.subplot(111)
+	PLT.pause(0.01)
+	PLT.draw()
+
+PLT.pause(1)
+#PLT.show()
+
+
+# plt.ion()
+# for i in range(50):
+#     y = np.random.random([10,1])
+#     plt.plot(y)
+#     plt.draw()
+#     plt.pause(0.0001)
+#     plt.clf()
