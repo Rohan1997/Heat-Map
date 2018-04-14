@@ -17,17 +17,13 @@ X, Y = np.meshgrid(x, y)											#Generate x,y matrix
 n1 = 5
 yMean = [50  , 153 , 185 , 300 , 405 ];
 xMean = [200 , 190 , 110 , 130 , 180 ];
-kMean = [90  , 70  , 70  ,  90 , 70 ];
-amplitude = [100 , 255 , 255 , 150 , 255 ];
+kMean = [60  , 70  , 70  ,  90 , 70 ];
+amplitude = [200 , 255 , 255 , 150 , 255 ];
 
 P1 = np.zeros((height,width))
 
 
 i=0
-
-#Z1 = ML.bivariate_normal(X, Y, 1, 2, 0, 0)
-#Z1 = ML.bivariate_normal(X, Y, 50, 200, kMean[i], kMean[i])
-#bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.00
 P1 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
 i=1
 P2 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
@@ -75,4 +71,56 @@ plt.ion()
 plt.pause(0.01)
 plt.draw()
 
-plt.pause(7)
+plt.pause(2)
+
+
+j=1
+while 1:
+	if j==1:	
+		amplitude[1] = 1000
+		i=0
+		P1 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=1
+		P2 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=2
+		P3 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=3
+		P4 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=4
+		P5 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+
+		P = P1+P2+P3+P4+P5
+
+		P[img>30] = 0
+		x = X.ravel()
+		y = Y.ravel()
+		z = P.ravel()
+		plt.hexbin(x, y, C=z, gridsize=gridsize, cmap=CM.jet, bins=None)
+		plt.axis([x.min(), x.max(), y.min(), y.max()])
+		plt.pause(0.001)
+		plt.draw()
+		j=2
+	else :
+		i=0
+		amplitude[1] = 200
+		P1 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=1
+		P2 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=2
+		P3 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=3
+		P4 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+		i=4
+		P5 = + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
+
+		P = P1+P2+P3+P4+P5
+
+		P[img>30] = 0
+		x = X.ravel()
+		y = Y.ravel()
+		z = P.ravel()
+		plt.hexbin(x, y, C=z, gridsize=gridsize, cmap=CM.jet, bins=None)
+		plt.axis([x.min(), x.max(), y.min(), y.max()])
+		plt.pause(0.001)
+		plt.draw()
+		j=1
