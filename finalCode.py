@@ -57,7 +57,8 @@ j=1
 while 1:
 	if j==1:	
 		amplitude = [200 , 255 , 255 , 150 , 255 ]
-		
+		P1 = np.zeros((height,width))
+
 		for i in range(n1):
 			P1 = P1 + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
 		P1[img>30] = 0
@@ -70,9 +71,9 @@ while 1:
 		plt.draw()
 		j=2
 	else :
-		i=0
-		amplitude = [1000 , 200 , 100 , 150 , 1055 ]
-
+		
+		amplitude = [200 , 255 , 255 , 150 , 255 ]
+		P1 = np.zeros((height,width))
 		for i in range(n1):
 			P1 = P1 + amplitude[i]*np.exp( (-(X-xMean[i])**2 -(Y-yMean[i])**2)/(kMean[i]*kMean[i]) )
 		P1[img>30] = 0
